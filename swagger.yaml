@@ -1,0 +1,215 @@
+openapi: 3.0.1
+info:
+  title: RAG Knowledge API
+  version: "1.0.0"
+  description: |
+    Retrieval-Augmented Generation (RAG) システム用API。
+    - /ingest: 文書データを登録し、Titan Embeddings でベクトル化して OpenSearch Serverless に格納
+    - /query : 質問文に基づきベクトル検索＋Bedrock LLM で回答生成
+
+servers:
+  - url: https://api.example.com/prod
+    description: Production API
+
+tags:
+  - name: Ingestion
+    description: RAGへのデータの格納に関する操作
+  - name: Query
+    description: LLMで推論して結果を取得する操作
+
+paths:
+  /ingest:
+    post:
+      tags:
+        - Ingestion
+      summary: テキストデータをRAGに格納
+      description: |
+        テキストデータを Titan Embeddings でベクトル化し、
+        OpenSearch Serverless にRAGとして格納します。
+        RAGに登録するデータの原本はS3に格納します。
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IngestRequest"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IngestResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  
+  /ingest-file:
+    post:
+      tags:
+        - Ingestion
+      summary: データ（Word、PDF）をRAGに格納 ※実装予定なし
+      description: |
+        APIで受け取ったファイルをS3に置きます（原本保持のため）。
+        APIで受け取ったファイルからテキストを抽出し、チャンク分割した後、
+        Titan Embeddings でベクトル化し、
+        OpenSearch Serverless にRAGとして格納します。
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IngestRequest"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/IngestResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /query:
+    post:
+      tags:
+        - Query
+      summary: RAG を用いて質問に回答する（検索 → 推論）
+      description: |
+        質問文を Titan Embeddings でベクトル化 → OpenSearch で関連ドキュメントを検索 →
+        Bedrock LLM で回答を生成します。
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QueryRequest"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QueryResponse"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  schemas:
+    IngestRequest:
+      type: object
+      properties:
+        text:
+          type: string
+          description: RAG に格納するテキスト本文
+        metadata:
+          type: object
+          description: 任意のメタデータ（source, page, title など）
+      required:
+        - text
+
+    IngestResponse:
+      type: object
+      properties:
+        document_id:
+          type: string
+        message:
+          type: string
+
+    QueryRequest:
+      type: object
+      properties:
+        query:
+          type: string
+          description: ユーザーの質問
+        top_k:
+          type: integer
+          description: RAGの検索で返すチャンクの数
+          default: 5
+        filters:
+          type: object
+          description: OpenSearchでメタデータを用いた検索を行う場合に使うフィルター
+        llm_params:
+          type: object
+          description: Bedrockに渡すLLMパラメータ（RAGの回答生成の細かな調整をするために用いる）
+      required:
+        - query
+
+    QueryResponse:
+      type: object
+      properties:
+        answer:
+          type: string
+        contexts:
+          type: array
+          items:
+            $ref: "#/components/schemas/ContextItem"
+        model:
+          type: string
+
+    ContextItem:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Retrieved chunk text.
+        score:
+          type: number
+          description: Similarity score (higher = more relevant).
+        document_id:
+          type: string
+          description: ID of the original document.
+        chunk_id:
+          type: string
+          description: Identifier of the chunk.
+        metadata:
+          type: object
+          description: Additional metadata (source, page, title, etc.)
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
