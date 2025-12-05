@@ -34,7 +34,7 @@ XX
 
 API の詳細仕様（Request / Response / 各フィールド説明）については、  
 リポジトリ内の Swagger（OpenAPI） を参照。
-👉 **`.//swagger.yaml`**  
+👉 **`./swagger.yaml`**  
 
 　
 ## 🧩 工夫点
