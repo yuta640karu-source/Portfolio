@@ -17,7 +17,8 @@ XX
 | **Bedrock Knowledge Bases(KB)** | S3 を自動同期し、チャンク化・Embedding・インデックス化を自動実行。 |
 | **Bedrock Runtime** | RAG context + query を LLM に送信し、回答生成。可変モデル対応。 |
  
-<img width="826" height="498" alt="image" src="https://github.com/user-attachments/assets/c5907f52-d783-440f-a40a-280101635bd2" />
+<img width="840" height="499" alt="image" src="https://github.com/user-attachments/assets/cc23be8e-36b0-4dc5-9032-2556153908a9" />
+
 
 ### 処理フローの説明
 - API Gateway で受け付けたリクエストは、VPC 内に配置されたLambdaに引き渡され、処理内容に応じて 「文書の登録（ingest API） 」 または 「質問への回答生成（query API）」 を実行する。
