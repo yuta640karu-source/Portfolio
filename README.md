@@ -4,6 +4,11 @@
 ## 📘 概要
 - Amazon Bedrock Knowledge Bases と AWS Serverless を活用したドキュメント検索・質問応答 API プラットフォーム
 
+| 用語 | 説明 |
+|------|------|
+| AWS Bedrock | AWS が提供する サーバーレスの生成AIサービス |
+| Bedrock Knowledge Bases(KB)** | Amazon Bedrockサービスが提供するフルマネージドの RAG 検索基盤 |
+| AWS Serverless | アプリケーションを動かすための サーバー管理が不要になる AWS のアーキテクチャモデル のこと |
 　
 ## 🏗 アーキテクチャ構成・処理フロー
 本システムは AWS のサーバーレスアーキテクチャを用いて構築している。
