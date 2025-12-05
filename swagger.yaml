@@ -97,8 +97,8 @@ paths:
         - Query
       summary: RAG を用いて質問に回答する（検索 → 推論）
       description: |
-        質問文を Titan Embeddings でベクトル化 → OpenSearch で関連ドキュメントを検索 →
-        Bedrock LLM で回答を生成します。
+        質問文を Bedrock Knowledge Bases で検索し、結果をもとに LLM が回答を生成します。
+        top_k により検索件数を制御できます。
       security:
         - ApiKeyAuth: []
       requestBody:
@@ -165,53 +165,74 @@ components:
 
     QueryRequest:
       type: object
+      required:
+        - query
       properties:
         query:
           type: string
-          description: ユーザーの質問
+          description: "ユーザーの質問文（LLMが回答を生成するための入力）"
+          example: "RAGアーキテクチャについて説明してください。"
+
         top_k:
           type: integer
-          description: RAGの検索で返すチャンクの数
+          description: "Knowledge Base 検索で返す最大チャンク数。数が多いほど検索精度は上がるが、遅延も増える。"
           default: 5
-        filters:
-          type: object
-          description: OpenSearchでメタデータを用いた検索を行う場合に使うフィルター
+          example: 5
+
         llm_params:
           type: object
-          description: Bedrockに渡すLLMパラメータ（RAGの回答生成の細かな調整をするために用いる）
-      required:
-        - query
+          description: "LLMへの追加パラメータ。モデル変更や出力調整（最大トークン数 / temperature）を指定できる。"
+          properties:
+            model:
+              type: string
+              description: "回答生成に使用するLLMモデル。未指定の場合は環境変数 LLM_MODEL_ID を使用。"
+              example: "anthropic.claude-3-sonnet-20240229-v1:0"
+            max_tokens:
+              type: integer
+              description: "出力される最大トークン数（レスポンスの長さを制御）"
+              example: 800
+            temperature:
+              type: number
+              format: float
+              description: "生成される回答のランダム性（0.0〜1.0推奨）。低いほど回答が安定する。"
+              example: 0.2
 
+  
     QueryResponse:
       type: object
       properties:
         answer:
           type: string
-        contexts:
-          type: array
-          items:
-            $ref: "#/components/schemas/ContextItem"
         model:
           type: string
-
-    ContextItem:
+          description: "Model ID used to generate LLM answer"
+        rag_used:
+          type: boolean
+          example: true
+          description: "Whether RAG retrieval was used"
+        hit_count:
+          type: integer
+          example: 3
+          description: "Number of KB chunks retrieved"
+        context:
+          type: array
+          items:
+            $ref: "#/components/schemas/RAGContext"
+    
+    RAGContext:
       type: object
       properties:
         text:
           type: string
-          description: Retrieved chunk text.
-        score:
-          type: number
-          description: Similarity score (higher = more relevant).
-        document_id:
+        vector_score:
           type: string
-          description: ID of the original document.
+        s3_key:
+          type: string
         chunk_id:
           type: string
-          description: Identifier of the chunk.
         metadata:
           type: object
-          description: Additional metadata (source, page, title, etc.)
+          additionalProperties: true
 
     ErrorResponse:
       type: object
