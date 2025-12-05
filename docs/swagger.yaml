@@ -4,8 +4,7 @@ info:
   version: "1.0.0"
   description: |
     Retrieval-Augmented Generation (RAG) システム用API。
-    - /ingest: 文書データを登録し、Titan Embeddings でベクトル化して OpenSearch Serverless に格納
-    - /query : 質問文に基づきベクトル検索＋Bedrock LLM で回答生成
+   
 
 servers:
   - url: https://api.example.com/prod
