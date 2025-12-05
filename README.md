@@ -6,9 +6,8 @@ XX
 
 　
 ## 🏗 アーキテクチャ構成・処理フロー
-本システムは AWS サーバーレスアーキテクチャを用いて構築しており、以下の２つの要素で構成される。
-- API Gateway → Lambda → Bedrock → LLM による推論パイプライン
-- S3 → Bedrock Knowledge Bases による RAG 検索パイプライン
+本システムは AWS のサーバーレスアーキテクチャを用いて構築している。
+構成は、LLMによる推論パイプラインと、Bedrock Knowledge Bases を用いた RAG 検索パイプラインの2つから成る。
 
 ### アーキテクチャ構成の説明
 | 項目 | 内容 |
