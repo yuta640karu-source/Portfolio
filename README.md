@@ -24,16 +24,17 @@ XX
 - Ingest APIで連携されたデータはS3に格納される。Bedrock Knowledge Bases は S3をデータソースとして自動的に同期・インデックス化を行い、質問応答に利用するためのRAG基盤を構築する。
 - Query API では、Lambda が Knowledge Bases に対して関連文書の検索を行い、取得したcontextとユーザーから受け取ったqueryを基にプロンプトを生成する。生成したプロンプトはBedrockのLLMに送信され、LLMが最終的な回答を生成する。
 
-
-
-
-
-## 📡 API Endpoints
+## 📡 API概要
+本システムでは以下の 2 種類の API を提供している。
 ### POST /ingest
 XX
 
 ### POST /query
 XX
+
+API の詳細仕様（Request / Response / 各フィールド説明）については、  
+リポジトリ内の Swagger（OpenAPI） を参照。
+👉 **`.//swagger.yaml`**  
 
 　
 ## 🧩 工夫点
