@@ -10,7 +10,7 @@ XX
 - API Gateway → Lambda → Bedrock → LLM による推論パイプライン
 - S3 → Bedrock Knowledge Bases による RAG 検索パイプライン
  
-【アーキテクチャ】
+### アーキテクチャ構成の説明
 1. Lambdaの配置
 ・Lambda は Private Subnet A / B の 2つのサブネットに配置し、冗長構成を確保。
 ・外部インターネットへ直接出ない閉域構成としてセキュアな実行環境を構築。
@@ -29,7 +29,7 @@ XX
 
 <img width="826" height="498" alt="image" src="https://github.com/user-attachments/assets/c5907f52-d783-440f-a40a-280101635bd2" />
 
-【処理フロー】
+【処理フローの説明】
 - API Gateway で受け付けたリクエストは、VPC 内に配置されたLambdaに引き渡され、処理内容に応じて 「文書の登録（ingest API） 」 または 「質問への回答生成（query API）」 を実行する。
 - Ingest APIで連携されたデータはS3に格納される。Bedrock Knowledge Bases は S3をデータソースとして自動的に同期・インデックス化を行い、質問応答に利用するためのRAG基盤を構築する。
 - Query API では、Lambda が Knowledge Bases に対して関連文書の検索を行い、取得したcontextとユーザーから受け取ったqueryを基にプロンプトを生成する。生成したプロンプトはBedrockのLLMに送信され、LLMが最終的な回答を生成する。
