@@ -10,30 +10,14 @@ XX
 - API Gateway → Lambda → Bedrock → LLM による推論パイプライン
 - S3 → Bedrock Knowledge Bases による RAG 検索パイプライン
 
+### アーキテクチャ構成の説明
 | 項目 | 内容 |
 |------|------|
-| **Lambda 配置** | Private Subnet A/B に配置し冗長化。閉域構成でセキュアに運用。 |
-| **Bedrock / S3 接続** | PrivateLink による Bedrock 閉域接続。S3 は Gateway Endpoint 経由。 |
-| **Bedrock KB** | S3 を自動同期し、チャンク化・Embedding・インデックス化を自動実行。 |
+| **Lambdaの配置** | Private Subnet A/B に配置し冗長化。閉域構成でセキュアに運用。 |
+| **Bedrock / S3へのプライベート接続** | PrivateLink による Bedrock 閉域接続。S3 は Gateway Endpoint 経由。 |
+| **Bedrock Knowledge Bases(KB)** | S3 を自動同期し、チャンク化・Embedding・インデックス化を自動実行。 |
 | **Bedrock Runtime** | RAG context + query を LLM に送信し、回答生成。可変モデル対応。 |
  
-### アーキテクチャ構成の説明
-- Lambdaの配置
-  - Lambda は Private Subnet A / B の 2つのサブネットに配置し、冗長構成を確保。
-  - 外部インターネットへ直接出ない閉域構成としてセキュアな実行環境を構築。
-
-- Bedrock / S3 へのプライベート接続
-  - Lambda から Bedrockにアクセスする際は、PrivateLinkを経由することでインターネット非公開の安全な通信を実現。
-  - S3へのデータのアップロードはGateway VPC Endpoint を通じて実施。
-
-- Bedrock Knowledge Bases による RAG 検索基盤
-  - S3 をデータソースとし、KB が自動でチャンク化・Embedding 生成・インデックス化を実行。
-  - RAGの検索処理は Bedrock Agent Runtime により提供され、サーバーレスで運用可能。
-
-- Bedrock Runtimeによる推論処理
-  - RAG 検索結果（context）と query を基にLLMへプロンプトを送信。
-  - Claude / Llama / Titan / Cohere など 任意のモデルを可変利用できる設計
-
 <img width="826" height="498" alt="image" src="https://github.com/user-attachments/assets/c5907f52-d783-440f-a40a-280101635bd2" />
 
 【処理フローの説明】
