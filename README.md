@@ -9,6 +9,23 @@ XX
 本システムは AWS サーバーレスを用いて構築しており、以下の２つの要素で構成される。
 - API Gateway → Lambda → Bedrock → LLM による推論パイプライン
 - S3 → Bedrock Knowledge Bases による RAG 検索パイプライン
+
+<div style="padding: 12px; background: #f7faff; border-left: 6px solid #4a90e2; margin-bottom:20px;">
+  <h3>1. Lambda の配置</h3>
+  <ul>
+    <li>Private Subnet A/B の冗長構成。</li>
+    <li>閉域ネットワークでセキュアな実行環境を実現。</li>
+  </ul>
+</div>
+
+<div style="padding: 12px; background: #f7faff; border-left: 6px solid #4a90e2; margin-bottom:20px;">
+  <h3>2. Bedrock / S3 へのプライベート接続</h3>
+  <ul>
+    <li>Bedrock は PrivateLink 経由でインターネット非公開接続。</li>
+    <li>S3 アップロードは Gateway VPC Endpoint 使用。</li>
+  </ul>
+</div>
+
  
 ### アーキテクチャ構成の説明
 - Lambdaの配置
