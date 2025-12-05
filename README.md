@@ -1,5 +1,1 @@
-## 🧩 工夫点（Highlights）
-- Bedrock KB による RAG の完全マネージド化
-- IaC（AWS SAM）による再現性の高い環境構築
-- モデル可変対応の柔軟な LLM 呼び出し設計
-- Explainable AI を意識したレスポンス仕様
+<img width="871" height="483" alt="image" src="https://github.com/user-attachments/assets/176adcc7-6d45-4853-b5ee-93d13d282f7f" />
