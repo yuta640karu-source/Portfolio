@@ -1,8 +1,8 @@
-# RAG + LLM Serverless API
+# AskRAG API
 
 　
 ## 📘 概要
-XX
+- Amazon Bedrock Knowledge Bases と AWS Serverless を活用したドキュメント検索・質問応答 API プラットフォーム
 
 　
 ## 🏗 アーキテクチャ構成・処理フロー
