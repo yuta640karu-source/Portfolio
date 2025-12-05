@@ -13,7 +13,7 @@ servers:
 
 tags:
   - name: Ingestion
-    description: RAGへのデータの格納に関する操作
+    description: RAGで用いるデータのS3への格納に関する操作
   - name: Query
     description: LLMで推論して結果を取得する操作
 
@@ -22,11 +22,10 @@ paths:
     post:
       tags:
         - Ingestion
-      summary: テキストデータをRAGに格納
+      summary: RAGで用いるテキストデータをS3に格納
       description: |
-        テキストデータを Titan Embeddings でベクトル化し、
-        OpenSearch Serverless にRAGとして格納します。
-        RAGに登録するデータの原本はS3に格納します。
+        RAGで用いるテキストデータをS3に格納します。
+        S3に格納されたデータはBedrock Knowledge Baseにより自動的にRAGに同期されます。
       security:
         - ApiKeyAuth: []
       requestBody:
@@ -58,7 +57,7 @@ paths:
     post:
       tags:
         - Ingestion
-      summary: データ（Word、PDF）をRAGに格納 ※実装予定なし
+      summary: RAGで用いるデータ（Word、PDF）をS3に格納 ※実装予定なし
       description: |
         APIで受け取ったファイルをS3に置きます（原本保持のため）。
         APIで受け取ったファイルからテキストを抽出し、チャンク分割した後、
@@ -153,8 +152,16 @@ components:
       properties:
         document_id:
           type: string
+          description: "アップロードされた文書を識別する一意のID"
+        s3_key:
+          type: string
+          description: "保存先S3キー（Knowledge Baseが同期対象とするパス）"
+        status:
+          type: string
+          description: "uploaded（S3への保存成功を示す）"
         message:
           type: string
+          description: "Knowledge BaseがS3の文書を自動的に同期することを示す説明文"
 
     QueryRequest:
       type: object
