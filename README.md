@@ -32,9 +32,10 @@ XX
 ### POST /query
 XX
 
-API の詳細仕様（Request / Response / 各フィールド説明）については、  
-リポジトリ内の Swagger（OpenAPI） を参照。
-👉 **`./swagger.yaml`**  
+本プロジェクトの API 仕様は Swagger（OpenAPI）で定義しており、  
+リポジトリ内の Swagger UI から確認できる。
+👉 **[Swagger UI を開く（index.html）](./index.html)**  
+👉 Swagger 定義ファイル: `./swagger.yaml`
 
 　
 ## 🧩 工夫点
