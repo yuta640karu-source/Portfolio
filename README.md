@@ -10,22 +10,12 @@ XX
 - API Gateway → Lambda → Bedrock → LLM による推論パイプライン
 - S3 → Bedrock Knowledge Bases による RAG 検索パイプライン
 
-<div style="padding: 12px; background: #f7faff; border-left: 6px solid #4a90e2; margin-bottom:20px;">
-  <h3>1. Lambda の配置</h3>
-  <ul>
-    <li>Private Subnet A/B の冗長構成。</li>
-    <li>閉域ネットワークでセキュアな実行環境を実現。</li>
-  </ul>
-</div>
-
-<div style="padding: 12px; background: #f7faff; border-left: 6px solid #4a90e2; margin-bottom:20px;">
-  <h3>2. Bedrock / S3 へのプライベート接続</h3>
-  <ul>
-    <li>Bedrock は PrivateLink 経由でインターネット非公開接続。</li>
-    <li>S3 アップロードは Gateway VPC Endpoint 使用。</li>
-  </ul>
-</div>
-
+| 項目 | 内容 |
+|------|------|
+| **Lambda 配置** | Private Subnet A/B に配置し冗長化。閉域構成でセキュアに運用。 |
+| **Bedrock / S3 接続** | PrivateLink による Bedrock 閉域接続。S3 は Gateway Endpoint 経由。 |
+| **Bedrock KB** | S3 を自動同期し、チャンク化・Embedding・インデックス化を自動実行。 |
+| **Bedrock Runtime** | RAG context + query を LLM に送信し、回答生成。可変モデル対応。 |
  
 ### アーキテクチャ構成の説明
 - Lambdaの配置
