@@ -27,12 +27,14 @@ XX
 - RAG 検索結果（context）と query を基にLLMへプロンプトを送信。
 - Claude / Llama / Titan / Cohere など 任意のモデルを可変利用できる設計
 
+<img width="826" height="498" alt="image" src="https://github.com/user-attachments/assets/c5907f52-d783-440f-a40a-280101635bd2" />
+
 【処理フロー】
 - API Gateway で受け付けたリクエストは、VPC 内に配置されたLambdaに引き渡され、処理内容に応じて 「文書の登録（ingest API） 」 または 「質問への回答生成（query API）」 を実行する。
 - Ingest APIで連携されたデータはS3に格納される。Bedrock Knowledge Bases は S3をデータソースとして自動的に同期・インデックス化を行い、質問応答に利用するためのRAG基盤を構築する。
 - Query API では、Lambda が Knowledge Bases に対して関連文書の検索を行い、取得したcontextとユーザーから受け取ったqueryを基にプロンプトを生成する。生成したプロンプトはBedrockのLLMに送信され、LLMが最終的な回答を生成する。
 
-<img width="826" height="498" alt="image" src="https://github.com/user-attachments/assets/c5907f52-d783-440f-a40a-280101635bd2" />
+
 
 
 
