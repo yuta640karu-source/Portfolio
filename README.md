@@ -9,7 +9,7 @@
 | AWS Bedrock | AWS が提供する サーバーレスの生成AIサービス |
 | Bedrock Knowledge Bases(KB)** | Amazon Bedrockサービスが提供するフルマネージドの RAG 検索基盤 |
 | AWS Serverless | アプリケーションを動かすための サーバー管理が不要になる AWS のアーキテクチャモデル のこと |
-　
+
 ## 🏗 アーキテクチャ構成・処理フロー
 本システムは AWS のサーバーレスアーキテクチャを用いて構築している。
 構成は、「LLMによる推論パイプライン」と、Bedrock Knowledge Bases を用いた 「RAGパイプライン」の2つから成る。
