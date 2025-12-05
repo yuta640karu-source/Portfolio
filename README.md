@@ -15,17 +15,17 @@ XX
   - Lambda は Private Subnet A / B の 2つのサブネットに配置し、冗長構成を確保。
   - 外部インターネットへ直接出ない閉域構成としてセキュアな実行環境を構築。
 
-2. Bedrock / S3 へのプライベート接続
-- Lambda から Bedrockにアクセスする際は、PrivateLinkを経由することでインターネット非公開の安全な通信を実現。
-- S3へのデータのアップロードはGateway VPC Endpoint を通じて実施。
+- Bedrock / S3 へのプライベート接続
+  - Lambda から Bedrockにアクセスする際は、PrivateLinkを経由することでインターネット非公開の安全な通信を実現。
+  - S3へのデータのアップロードはGateway VPC Endpoint を通じて実施。
 
-3. Bedrock Knowledge Bases による RAG 検索基盤
-- S3 をデータソースとし、KB が自動でチャンク化・Embedding 生成・インデックス化を実行。
-- RAGの検索処理は Bedrock Agent Runtime により提供され、サーバーレスで運用可能。
+- Bedrock Knowledge Bases による RAG 検索基盤
+  - S3 をデータソースとし、KB が自動でチャンク化・Embedding 生成・インデックス化を実行。
+  - RAGの検索処理は Bedrock Agent Runtime により提供され、サーバーレスで運用可能。
 
-4. Bedrock Runtimeによる推論処理
-- RAG 検索結果（context）と query を基にLLMへプロンプトを送信。
-- Claude / Llama / Titan / Cohere など 任意のモデルを可変利用できる設計
+- Bedrock Runtimeによる推論処理
+  - RAG 検索結果（context）と query を基にLLMへプロンプトを送信。
+  - Claude / Llama / Titan / Cohere など 任意のモデルを可変利用できる設計
 
 <img width="826" height="498" alt="image" src="https://github.com/user-attachments/assets/c5907f52-d783-440f-a40a-280101635bd2" />
 
