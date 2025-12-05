@@ -11,7 +11,7 @@ XX
 - S3 → Bedrock Knowledge Bases による RAG 検索パイプライン
  
 ### アーキテクチャ構成の説明
-- 1. Lambdaの配置
+-Lambdaの配置
   -Lambda は Private Subnet A / B の 2つのサブネットに配置し、冗長構成を確保。
   -外部インターネットへ直接出ない閉域構成としてセキュアな実行環境を構築。
 
