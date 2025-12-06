@@ -45,6 +45,8 @@ XX
 👉 **[Swagger UI を開く（index.html）](./index.html)**  
 👉 Swagger 定義ファイル: `./swagger.yaml`
 
+## 📡 デモ
+curl -X POST https:XXXXX 
 　
 ## 🧩 工夫点
 <img width="871" height="483" alt="image" src="https://github.com/user-attachments/assets/176adcc7-6d45-4853-b5ee-93d13d282f7f" />
