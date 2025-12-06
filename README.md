@@ -50,4 +50,10 @@ XX
 curl -X POST https:XXXXX 
 　
 ## 🧩 工夫点
+| 分類 | 工夫点 | 説明 |
+|------|--------|------|
+| **アーキテクチャ** | **Bedrock Knowledge Basesを活用したRAGの構築** | RAG の検索基盤として Bedrock Knowledge Bases（KB）を採用。文書のチャンク化、Embedding 生成、インデックス管理をすべてフルマネージドで実行できるため、従来の OpenSearch などの複雑な検索基盤を構築・運用する必要がない。S3（文書置き場）と KB が自動同期し、検索可能な状態を維持できるため、RAG 実装を大幅に簡素化し、運用コストも削減した。 |
+| **インフラ構築** | **IaC（Infrastructure as Code）によるインフラ自動構築** | VPC、API Gateway、Lambda などの主要な AWS リソースは **AWS SAM によりコード化して自動で構築**し、再現性の高い環境構築と変更管理を可能にした。 |
+| **アプリ仕様** | **LLMモデルの可変対応（モデル切り替え機能）** | API リクエスト側でモデル ID を指定することで、用途に応じて任意の LLM を利用可能。Claude、Llama、Titan、Cohere など Bedrock 上の任意モデルを柔軟に選択でき、精度・速度・コスト要件に応じて最適なモデルを切り替えられる設計とした。 |
+| **アプリ仕様** | **Explainable AIのためのAPIレスポンス設計** | RAG の透明性を高めるため、APIレスポンスに以下の項目を設計：<br>・**rag_used**：RAGが使用されたかどうか<br>・**hit_count**：RAGが返却したチャンク数<br>・**context**：LLM が参照したチャンク本文とそのメタ情報<br>LLMが**どの文書を参照して回答したかを可視化**することで、業務システムで求められる透明性と信頼性を確保している。 |
 <img width="871" height="483" alt="image" src="https://github.com/user-attachments/assets/176adcc7-6d45-4853-b5ee-93d13d282f7f" />
