@@ -20,7 +20,7 @@
 | 項目 | 内容 |
 |------|------|
 | **Bedrock Knowledge Bases(KB)** | S3 を自動同期し、チャンク化・Embedding・インデックス化を自動実行。 |
-| **Bedrock Runtime** | RAG context + query を LLM に送信し、回答生成。可変モデル対応。 |
+| **Bedrock Runtime** | RAG context + query を LLM に送信し、回答を生成する。 |
  
 <img width="720" height="486" alt="image" src="https://github.com/user-attachments/assets/c85d568e-2ea4-4540-a578-6ad94e5ecebb" />
 
