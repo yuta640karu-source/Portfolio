@@ -21,7 +21,7 @@
 |------|------|
 | **Bedrock Knowledge Bases(KB)** | S3 を自動同期し、チャンク化・Embedding・インデックス化を自動実行。 |
 | **Bedrock Runtime** | RAG context + query を LLM に送信し、回答を生成する。 |
-| **Vector Store(DynamoDB Vector Index)** | Bedrock Knowledge Base が生成したベクトルデータを格納する。 |
+| **Vector Store(DynamoDB Vector Index)** | Bedrock Knowledge Base が生成した文書 Embedding（ベクトル）を格納し、類似度検索を高速に行うためのベクトルストア。 |
  
 <img width="720" height="486" alt="image" src="https://github.com/user-attachments/assets/c85d568e-2ea4-4540-a578-6ad94e5ecebb" />
 
