@@ -7,7 +7,6 @@
 | 用語 | 説明 |
 |------|------|
 | AWS Bedrock | AWS が提供する サーバーレスの生成AIサービス |
-| Bedrock Knowledge Bases(KB) | Amazon Bedrockサービスが提供するフルマネージドの RAG 検索基盤 |
 | AWS Serverless | アプリケーションを動かすための サーバー管理が不要になる AWS のアーキテクチャモデル のこと |
 
 ## 🏗 アーキテクチャ構成・処理フロー
@@ -19,8 +18,8 @@
 ### アーキテクチャ構成の説明
 | 項目 | 内容 |
 |------|------|
-| **Bedrock Knowledge Bases(KB)** | S3 を自動同期し、チャンク化・Embedding・インデックス化を自動実行。 |
-| **Bedrock Runtime** | RAG context + query を LLM に送信し、回答を生成する。 |
+| **Bedrock Runtime** | RAG context と query を LLM に送信し、回答生成を行う推論用エンドポイント。 |
+| **Bedrock Knowledge Bases(KB)** | S3 を自動同期し、チャンク化・Embedding・インデックス化を自動実行することで、RAG の前処理をすべてマネージド化。 |
 | **Vector Store(DynamoDB Vector Index)** | Bedrock Knowledge Base が生成した文書 Embedding（ベクトル）を格納し、類似度検索を高速に行うためのベクトルストア。 |
  
 <img width="720" height="486" alt="image" src="https://github.com/user-attachments/assets/c85d568e-2ea4-4540-a578-6ad94e5ecebb" />
