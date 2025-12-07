@@ -4,6 +4,7 @@
 ## 📘 概要
 - 本プロジェクトでは、Amazon Bedrock と Knowledge Bases for Amazon Bedrock を用いて、
 企業内ドキュメントを活用した RAG（Retrieval-Augmented Generation）型QAシステム を構築した。
+
 | 用語 | 説明 |
 |------|------|
 | AWS Bedrock | AWS が提供する フルマネージドの生成AIプラットフォーム。 |
