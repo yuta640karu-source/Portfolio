@@ -32,6 +32,8 @@
 なお、本プロジェクトでは PoC（個人開発）のため Lambda は VPC 外で実装する。
 実運用ではVPC内に配置し閉域化構成となる想定。
 
+<img width="725" height="495" alt="image" src="https://github.com/user-attachments/assets/736e1deb-182c-4425-9ec4-b9f12d3d7ca7" />
+
 ### アーキテクチャ構成の説明
 | 項目 | 内容 |
 |------|------|
@@ -39,14 +41,10 @@
 | **Bedrock Knowledge Bases(KB)** | S3 を自動同期し、チャンク化・Embedding・インデックス化を自動実行することで、RAG の前処理をすべてマネージド化。 |
 | **S3 Vectors** | Bedrock Knowledge Base が生成した文書 Embedding（ベクトル）を格納し、類似度検索を高速に行うためのベクトルストア。 |
  
-<img width="725" height="495" alt="image" src="https://github.com/user-attachments/assets/736e1deb-182c-4425-9ec4-b9f12d3d7ca7" />
-
 ### 処理フローの説明
 - API Gateway で受け付けたリクエストは、Lambdaに引き渡され、処理内容に応じて 「文書の登録（Ingest API） 」 または 「質問への回答生成（Query API）」 を実行する。
 - Ingest APIで連携されたデータはS3に格納される。Bedrock Knowledge Bases は S3をデータソースとして自動的に同期・インデックス化を行い、質問応答に利用するためのRAG基盤を構築する。
 - Query API では、Lambda が Knowledge Bases に対して関連文書の検索を行い、取得したcontextとユーザーから受け取ったqueryを基にプロンプトを生成する。生成したプロンプトはBedrockのLLMに送信され、LLMが最終的な回答を生成する。
-
-## 📡 API概要
 
 ## 📡 デモ
 curl -X POST https:XXXXX 
