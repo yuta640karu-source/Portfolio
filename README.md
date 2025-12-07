@@ -42,7 +42,7 @@
 | **S3 Vectors** | Bedrock Knowledge Base が生成した文書 Embedding（ベクトル）を格納し、類似度検索を高速に行うためのベクトルストア。 |
  
 ### 処理フローの説明
-- API Gateway で受け付けたリクエストは、Lambdaに引き渡され、処理内容に応じて 「文書の登録（Ingest API） 」 または 「質問への回答生成（Query API）」 を実行する。
+- API Gateway で受け付けたリクエストは、Lambdaに引き渡され、処理内容に応じて 「Ingest API 」 または 「Query API」 を実行する。
 - Ingest APIで連携されたデータはS3に格納される。Bedrock Knowledge Bases は S3をデータソースとして自動的に同期・インデックス化を行い、質問応答に利用するためのRAG基盤を構築する。
 - Query API では、Lambda が Knowledge Bases に対して関連文書の検索を行い、取得したcontextとユーザーから受け取ったqueryを基にプロンプトを生成する。生成したプロンプトはBedrockのLLMに送信され、LLMが最終的な回答を生成する。
 
