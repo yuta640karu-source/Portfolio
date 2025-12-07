@@ -1,9 +1,8 @@
 openapi: 3.0.1
 info:
-  title: RAG Knowledge API
+  title: AskRag API
   version: "1.0.0"
-  description: |
-    Retrieval-Augmented Generation (RAG) システム用API。
+    
    
 
 servers:
@@ -52,43 +51,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
   
-  /ingest-file:
-    post:
-      tags:
-        - Ingestion
-      summary: RAGで用いるデータ（Word、PDF）をS3に格納 ※実装予定なし
-      description: |
-        APIで受け取ったファイルをS3に置きます（原本保持のため）。
-        APIで受け取ったファイルからテキストを抽出し、チャンク分割した後、
-        Titan Embeddings でベクトル化し、
-        OpenSearch Serverless にRAGとして格納します。
-      security:
-        - ApiKeyAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/IngestRequest"
-      responses:
-        "200":
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/IngestResponse"
-        "400":
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        "500":
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
+  
 
   /query:
     post:
