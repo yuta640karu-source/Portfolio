@@ -22,8 +22,9 @@ paths:
         - Ingestion
       summary: RAGで用いるテキストデータをS3に格納
       description: |
-        RAGで用いるテキストデータをS3に格納します。
-        S3に格納されたデータはBedrock Knowledge Baseにより自動的にRAGに同期されます。
+        RAG に利用するテキストデータを登録するための API
+        クライアントから送信されたテキストデータを受け取り、システム内部のストレージに保管する
+        保存されたテキストデータは、後にRAGの検索対象（ナレッジ）として利用される
       security:
         - ApiKeyAuth: []
       requestBody:
@@ -59,8 +60,8 @@ paths:
         - Query
       summary: RAG を用いて質問に回答する（検索 → 推論）
       description: |
-        質問文を Bedrock Knowledge Bases で検索し、結果をもとに LLM が回答を生成します。
-        top_k により検索件数を制御できます。
+        クライアントの質問に対し、RAG による検索結果をコンテキストとして LLM が回答を生成する API
+        見つかったナレッジをもとに AI が最適な回答を返す（見つからない場合は一般知識で回答）
       security:
         - ApiKeyAuth: []
       requestBody:
