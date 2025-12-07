@@ -56,5 +56,7 @@ curl -X POST https:XXXXX
 | アーキテクチャ | Bedrock Knowledge Basesを活用したRAGの構築 | RAG の検索基盤として Bedrock Knowledge Bases（KB）を採用。文書のチャンク化、Embedding 生成、インデックス管理をすべてフルマネージドで実行できるため、自前で OpenSearch などの複雑な検索基盤を構築・運用する必要がない。S3に文書を置くだけで KB が自動同期し、検索可能な状態を維持できるため、**RAG の実装を大幅に簡素化し、運用コストも削減**した。 |
 | アーキテクチャ | Vector StoreとしてS3 Vectorsを採用 |「小規模・個人開発では OpenSearch Serverless の最低構成でもランニングコストが高くなるため、S3 Vectorsを採用した。S3 はサーバレスかつストレージ従量課金でアイドルコストが発生しないため、**RAG に必要なベクトル検索基盤を極めて低コストで運用できる**。|
 | インフラ構築 | IaC（Infrastructure as Code）によるインフラ自動構築 | VPC、API Gateway、Lambda などの主要な AWS リソースは **AWS SAM によりコード化して自動で構築**し、再現性の高い環境構築と変更管理を可能にした。 |
-| アプリ仕様 | LLMモデルの可変対応（モデル切り替え機能） | API リクエストでモデル ID を指定することで、用途に応じて任意の LLM を利用可能。Claude、Llama、Titan、Cohere など Bedrock 上の任意モデルを柔軟に選択でき、**精度・速度・コスト要件に応じて最適なモデルを切り替えられる設計**とした。 |
-| アプリ仕様 | Explainable AIのためのAPIレスポンス設計 | RAG の透明性を高めるため、APIレスポンスに以下の項目を設けた：<br>・rag_used：RAGを利用したか否か<br>・hit_count：RAGが返却したチャンク数<br>・context[]：LLM が返却したチャンク本文とそのメタ情報<br>LLMが**どの文書を参照して回答したかを可視化することで、業務システムで求められる説明責任と信頼性を確保**している。 |
+| API仕様 | LLMモデルの可変対応（モデル切り替え機能） | API リクエストでモデル ID を指定することで、用途に応じて任意の LLM を利用可能。Claude、Llama、Titan、Cohere など Bedrock 上の任意モデルを柔軟に選択でき、**精度・速度・コスト要件に応じて最適なモデルを切り替えられる設計**とした。 |
+| API仕様 | Explainable AIのためのAPIレスポンス設計 | RAG の透明性を高めるため、APIレスポンスに以下の項目を設けた：<br>・rag_used：RAGを利用したか否か<br>・hit_count：RAGが返却したチャンク数<br>・context[]：LLM が返却したチャンク本文とそのメタ情報<br>LLMが**どの文書を参照して回答したかを可視化することで、業務システムで求められる説明責任と信頼性を確保**している。 |
+| API仕様 | LLMのプロンプトおよび回答の加工 | XX |
+
