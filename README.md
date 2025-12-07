@@ -17,7 +17,7 @@
   
 ### Query API（質問応答API）
 - クライアントの質問に対し、RAG による検索結果をコンテキストとして LLM が回答を生成する API
-- 見つかったナレッジをもとに AI が最適な回答を返す（見つからない場合は一般知識で回答）
+- 見つかったナレッジをもとに AI が最適な回答を返す（見つからない場合はハルシネーション防止のため一般知識で回答しない）
 
 ※本プロジェクトの API 仕様は Swagger（OpenAPI）で定義しており、  リポジトリ内の Swagger UI から確認できる。
 **[Swagger UI を開く](https://yuta640karu-source.github.io/Portfolio/)**  
@@ -57,6 +57,11 @@ API実行のデモ用画面を用意した。
 
 ### 実行結果
 <img width="1467" height="1050" alt="image" src="https://github.com/user-attachments/assets/37070bda-a130-4310-a279-a2f196324166" />
+
+<img width="1448" height="1121" alt="image" src="https://github.com/user-attachments/assets/5357fa9b-3a5d-4c9b-ad4d-ca0996acdfc5" />
+
+
+
 
  
 ## 🧩 工夫点
