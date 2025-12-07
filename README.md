@@ -60,6 +60,8 @@ API実行のデモ用画面を用意した。
 
 <img width="1448" height="1121" alt="image" src="https://github.com/user-attachments/assets/5357fa9b-3a5d-4c9b-ad4d-ca0996acdfc5" />
 
+<img width="624" height="607" alt="image" src="https://github.com/user-attachments/assets/e52645d4-f704-4de7-8bc3-2eaf77d76b1c" />
+
 
 
 
