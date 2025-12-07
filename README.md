@@ -3,6 +3,7 @@
 　
 ## 本プロジェクトについて
 - 本プロジェクトでは、Amazon Bedrockを用いて、企業内ドキュメントを活用した RAG（Retrieval-Augmented Generation）型のQAシステム を構築した。
+- API 設計・Lambda 実装・RAG/LLM プロンプト設計・SAM による IaC まで一貫して実施した。
 
 | 用語 | 説明 |
 |------|------|
