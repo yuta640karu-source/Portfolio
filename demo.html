@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>AskRAG Demo</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 40px;
+    }
+    textarea, input {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-top: 6px;
+      resize: vertical;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #0078ff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover {
+      background: #005fcc;
+    }
+    pre {
+      background: #eee;
+      padding: 12px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+    .result-box {
+      margin-top: 20px;
+      padding: 15px;
+      background: #fafafa;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+    .answer {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>AskRAG Demo</h1>
+    <p>この画面では、RAG システムの <b>ドキュメント登録（Ingest）</b> と <b>質問応答（Query）</b> をブラウザ上で体験できます。</p>
+
+    <!-- Ingest Section -->
+    <h2>📥 Ingest API（テキストデータ登録）</h2>
+    <p>Knowledge Base に登録したいドキュメントを入力してください。</p>
+
+    <label><b>テキスト内容</b></label>
+    <textarea id="ingestText" placeholder="登録する文章を入力"></textarea>
+
+    <label><b>Metadata（任意）</b></label>
+    <input id="ingestSource" placeholder='source（例: "demo"）' />
+    <input id="ingestCategory" placeholder='category（例: "test"）' />
+
+    <button onclick="callIngest()">Ingest API を実行</button>
+
+    <div id="ingestResult" class="result-box"></div>
+
+    <!-- Query Section -->
+    <h2>🔍 Query API（質問応答）</h2>
+    <p>登録済みテキストを検索し、LLM が回答を生成します。</p>
+
+    <textarea id="queryInput" placeholder="例: 会社概要を教えてください。"></textarea>
+    <button onclick="callQuery()">Query API を実行</button>
+
+    <div id="queryResult" class="result-box"></div>
+
+  </div>
+
+  <script>
+    const endpointIngest = "https://w17e5we33a.execute-api.ap-northeast-1.amazonaws.com/Prod/ingest";
+    const endpointQuery  = "https://w17e5we33a.execute-api.ap-northeast-1.amazonaws.com/Prod/query";
+
+    // -------------------------------
+    // Ingest API
+    // -------------------------------
+    async function callIngest() {
+      const text = document.getElementById("ingestText").value;
+      const source = document.getElementById("ingestSource").value || "demo";
+      const category = document.getElementById("ingestCategory").value || "test";
+
+      if (!text) {
+        alert("テキストを入力してください");
+        return;
+      }
+
+      const body = {
+        text: text,
+        metadata: {
+          source: source,
+          category: category
+        }
+      };
+
+      document.getElementById("ingestResult").innerHTML = "実行中...";
+
+      const res = await fetch(endpointIngest, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      const data = await res.json();
+
+      document.getElementById("ingestResult").innerHTML = `
+        <div><b>📄 ドキュメント登録完了</b></div>
+        <pre>${JSON.stringify(data, null, 2)}</pre>
+        <p style="color:#555;">※ KB の同期には数十秒かかる場合があります</p>
+      `;
+    }
+
+    // -------------------------------
+    // Query API
+    // -------------------------------
+    async function callQuery() {
+      const query = document.getElementById("queryInput").value;
+
+      if (!query) {
+        alert("質問を入力してください");
+        return;
+      }
+
+      const body = { query: query };
+
+      document.getElementById("queryResult").innerHTML = "実行中...";
+
+      const res = await fetch(endpointQuery, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      const data = await res.json();
+
+      document.getElementById("queryResult").innerHTML = `
+        <div class="answer">💬 回答:<br>${data.answer}</div>
+        <b>Context（参照ドキュメント）</b>
+        <pre>${JSON.stringify(data.context, null, 2)}</pre>
+        <b>Raw JSON</b>
+        <pre>${JSON.stringify(data, null, 2)}</pre>
+      `;
+    }
+  </script>
+</body>
+</html>
