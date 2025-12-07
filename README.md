@@ -56,7 +56,8 @@ API実行のデモ用画面を用意した。
 ※開発者のローカルPCにてのみ実行可能
 
 ### 実行結果
-<img width="1467" height="1050" alt="image" src="https://github.com/user-attachments/assets/37070bda-a130-4310-a279-a2f196324166" width="50%"/>
+<img width="633" height="581" alt="image" src="https://github.com/user-attachments/assets/597a40fe-f4d3-4c2c-8417-eed062e166ff" width="50%" />
+
 
 <img width="604" height="692" alt="image" src="https://github.com/user-attachments/assets/22188646-9a84-48c2-bd72-b449f552b2e2" width="50%"/>
 
