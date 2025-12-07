@@ -54,7 +54,7 @@
 ### デモ用画面
 API実行のデモ用画面を用意した。
 **[デモ用画面 を開く](https://yuta640karu-source.github.io/Portfolio/demo.html)**  
-※開発者のローカルPCにてのみ実行可能
+※セキュリティの都合上、開発者のローカルPCにてのみ実行可能
 
 ### 実行結果
 <img width="633" height="581" alt="image" src="https://github.com/user-attachments/assets/597a40fe-f4d3-4c2c-8417-eed062e166ff" width="40%" />
