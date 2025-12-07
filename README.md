@@ -19,7 +19,7 @@ XX
 XX
 
 ※本プロジェクトの API 仕様は Swagger（OpenAPI）で定義しており、  リポジトリ内の Swagger UI から確認できる。
-**[Swagger UI を開く（index.html）](./index.html)**  
+**[Swagger UI を開く](https://yuta640karu-source.github.io/Portfolio/)**  
 
 
 
