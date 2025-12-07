@@ -21,7 +21,7 @@
 - 見つかったナレッジをもとに AI が最適な回答を返す（見つからない場合はハルシネーション防止のため一般知識で回答しない）
 
 ※本プロジェクトの API 仕様は Swagger（OpenAPI）で定義しており、  リポジトリ内の Swagger UI から確認できる。
-**[Swagger UI を開く](https://yuta640karu-source.github.io/Portfolio/docs/index.html)**  
+**[Swagger UI を開く](https://yuta640karu-source.github.io/Portfolio/index.html)**  
 
 
 ## アーキテクチャ構成・処理フロー
@@ -53,7 +53,7 @@
 
 ### デモ用画面
 API実行のデモ用画面を用意した。
-**[デモ用画面 を開く](https://yuta640karu-source.github.io/Portfolio/docs/demo.html)**  
+**[デモ用画面 を開く](https://yuta640karu-source.github.io/Portfolio/demo.html)**  
 ※セキュリティの都合上、開発者のローカルPCにてのみ実行可能
 
 ### 実行結果
