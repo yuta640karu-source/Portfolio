@@ -1,16 +1,29 @@
 # AskRAG API
 
 　
-## 📘 概要
+## 本プロジェクトについて
 - 本プロジェクトでは、Amazon Bedrockを用いて、企業内ドキュメントを活用した RAG（Retrieval-Augmented Generation）型のQAシステム を構築した。
+- 本システムは、RAG に登録するテキストデータを S3 経由でナレッジベースへ投入する「Ingest API」と、LLM を用いて質問に対する最適な回答を生成する「Query API」の 2 つの API で構成されている。これにより、企業型ドキュメントの取り込みから質問応答までを、シンプルな構成で実現している。
 
 | 用語 | 説明 |
 |------|------|
 | AWS Bedrock | AWS が提供する フルマネージドの生成AIプラットフォーム。 |
+| Amazon S3 | AWS が提供するスケーラブルで高耐久なオブジェクトストレージサービス |
 
-- 本システムは、RAG に登録するテキストデータを S3 経由でナレッジベースへ投入する「Ingest API」と、LLM を用いて質問に対する最適な回答を生成する「Query API」の 2 つの API で構成されている。これにより、企業型ドキュメントの取り込みから質問応答までを、シンプルな構成で実現している。
+## API仕様
+本システムでは以下の 2 種類の API を提供している。
+### POST /ingest
+XX
 
-## 🏗 アーキテクチャ構成・処理フロー
+### POST /query
+XX
+
+※本プロジェクトの API 仕様は Swagger（OpenAPI）で定義しており、  リポジトリ内の Swagger UI から確認できる。
+**[Swagger UI を開く（index.html）](./index.html)**  
+
+
+
+## アーキテクチャ構成・処理フロー
 本システムは AWS のサーバーレスアーキテクチャを用いて構築している。
 構成は、「LLMによる推論パイプライン」と、Bedrock Knowledge Bases を用いた 「RAGパイプライン」の2つから成る。
 なお、本プロジェクトでは PoC（個人開発）のため Lambda は VPC 外で実装する。
@@ -25,28 +38,12 @@
  
 <img width="725" height="495" alt="image" src="https://github.com/user-attachments/assets/736e1deb-182c-4425-9ec4-b9f12d3d7ca7" />
 
-
-
-
-
-
 ### 処理フローの説明
-- API Gateway で受け付けたリクエストは、Lambdaに引き渡され、処理内容に応じて 「文書の登録（ingest API） 」 または 「質問への回答生成（query API）」 を実行する。
+- API Gateway で受け付けたリクエストは、Lambdaに引き渡され、処理内容に応じて 「文書の登録（Ingest API） 」 または 「質問への回答生成（Query API）」 を実行する。
 - Ingest APIで連携されたデータはS3に格納される。Bedrock Knowledge Bases は S3をデータソースとして自動的に同期・インデックス化を行い、質問応答に利用するためのRAG基盤を構築する。
 - Query API では、Lambda が Knowledge Bases に対して関連文書の検索を行い、取得したcontextとユーザーから受け取ったqueryを基にプロンプトを生成する。生成したプロンプトはBedrockのLLMに送信され、LLMが最終的な回答を生成する。
 
 ## 📡 API概要
-本システムでは以下の 2 種類の API を提供している。
-### POST /ingest
-XX
-
-### POST /query
-XX
-
-本プロジェクトの API 仕様は Swagger（OpenAPI）で定義しており、  
-リポジトリ内の Swagger UI から確認できる。
-👉 **[Swagger UI を開く（index.html）](./index.html)**  
-👉 Swagger 定義ファイル: `./swagger.yaml`
 
 ## 📡 デモ
 curl -X POST https:XXXXX 
