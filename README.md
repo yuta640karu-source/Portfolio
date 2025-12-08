@@ -1,6 +1,5 @@
 # AskRAG API
 
----　
 ## 本プロジェクトについて
 - 本プロジェクトでは、Amazon Bedrockを用いて、企業内ドキュメントを活用した RAG（Retrieval-Augmented Generation）型のQAシステム を構築した。
 - RAG を “最小構成” で実現しつつ、AWS サーバーレスを活用してコスト最小化を意識した API ベースの設計と実装を行うことをテーマとしている。
@@ -32,6 +31,7 @@
 実運用ではVPC内に配置し閉域化構成となる想定。
 
 <img width="725" height="495" alt="image" src="https://github.com/user-attachments/assets/736e1deb-182c-4425-9ec4-b9f12d3d7ca7" />
+---
 
 ### 説明
 | 項目 | 内容 |
