@@ -10,7 +10,6 @@
 |------|------|
 | AWS Bedrock | AWS が提供する フルマネージドの生成AIプラットフォーム。 |
 
-  <br>
 ## 機能概要
 本システムは、「Ingest API」と「Query API」の 2 つの API で構成されている。
 ### 【Ingest API（テキストデータ登録API）】
