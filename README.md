@@ -24,6 +24,7 @@
 ※本プロジェクトの API 仕様は Swagger（OpenAPI）で定義しており、  リポジトリ内の Swagger UI から確認できる。
 **[Swagger UI を開く](https://yuta640karu-source.github.io/Portfolio/index.html)**  
 
+
   
 ## アーキテクチャ構成・処理フロー
 本システムは AWS のサーバーレスアーキテクチャを用いて構築している。
