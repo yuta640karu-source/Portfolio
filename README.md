@@ -18,8 +18,7 @@
 
 ## 機能概要
 本システムは、「Ingest API」と「Query API」の 2 つの API で構成されている。
-<details>
-<summary><strong> 📥 Ingest API（テキストデータ登録API）</strong></summary>
+### 📥 Ingest API（テキストデータ登録API）
 - RAG に利用するテキストデータを登録するための API
 - クライアントから送信されたテキストデータを受け取り、システム内部のストレージに保管する
 - 保存されたテキストデータは、後にRAGの検索対象（ナレッジ）として利用される
