@@ -1,5 +1,8 @@
 # AskRAG API
 
+![AWS](https://img.shields.io/badge/AWS-Bedrock-orange)
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![SAM](https://img.shields.io/badge/AWS-SAM-yellow)
 ## 本プロジェクトについて
 - 本プロジェクトでは、Amazon Bedrockを用いて、企業内ドキュメントを活用した RAG（Retrieval-Augmented Generation）型のQAシステム を構築した。
 - RAG を “最小構成” で実現しつつ、AWS サーバーレスを活用してコスト最小化を意識した API ベースの設計と実装を行うことをテーマとしている。
