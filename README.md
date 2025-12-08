@@ -1,8 +1,11 @@
 # AskRAG API
 
-![AWS](https://img.shields.io/badge/AWS-Bedrock-orange)
-![Python](https://img.shields.io/badge/Python-3.10-blue)
-![SAM](https://img.shields.io/badge/AWS-SAM-yellow)
+<p align="center">
+  <img src="https://img.shields.io/badge/AWS-Bedrock-orange">
+  <img src="https://img.shields.io/badge/Python-3.10-blue">
+  <img src="https://img.shields.io/badge/AWS-SAM-yellow">
+</p>
+
 ## 本プロジェクトについて
 - 本プロジェクトでは、Amazon Bedrockを用いて、企業内ドキュメントを活用した RAG（Retrieval-Augmented Generation）型のQAシステム を構築した。
 - RAG を “最小構成” で実現しつつ、AWS サーバーレスを活用してコスト最小化を意識した API ベースの設計と実装を行うことをテーマとしている。
@@ -15,10 +18,12 @@
 
 ## 機能概要
 本システムは、「Ingest API」と「Query API」の 2 つの API で構成されている。
-### 📥 Ingest API（テキストデータ登録API）
+<details>
+<summary><strong>### 📥 Ingest API（テキストデータ登録API）</strong></summary>
 - RAG に利用するテキストデータを登録するための API
 - クライアントから送信されたテキストデータを受け取り、システム内部のストレージに保管する
 - 保存されたテキストデータは、後にRAGの検索対象（ナレッジ）として利用される
+</details>
   
 ### 🔍 Query API（質問応答API）
 - クライアントの質問に対し、RAG による検索結果をコンテキストとして LLM が回答を生成する API
