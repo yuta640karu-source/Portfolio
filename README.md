@@ -16,7 +16,6 @@
 - RAG に利用するテキストデータを登録するための API
 - クライアントから送信されたテキストデータを受け取り、システム内部のストレージに保管する
 - 保存されたテキストデータは、後にRAGの検索対象（ナレッジ）として利用される
----
   
 ### 【Query API（質問応答API）】
 - クライアントの質問に対し、RAG による検索結果をコンテキストとして LLM が回答を生成する API
@@ -24,7 +23,7 @@
 
 ※本プロジェクトの API 仕様は Swagger（OpenAPI）で定義しており、  リポジトリ内の Swagger UI から確認できる。
 **[Swagger UI を開く](https://yuta640karu-source.github.io/Portfolio/index.html)**  
-
+---
 
 ## アーキテクチャ構成・処理フロー
 本システムは AWS のサーバーレスアーキテクチャを用いて構築している。
@@ -32,7 +31,6 @@
 実運用ではVPC内に配置し閉域化構成となる想定。
 
 <img width="725" height="495" alt="image" src="https://github.com/user-attachments/assets/736e1deb-182c-4425-9ec4-b9f12d3d7ca7" />
----
 
 ### 説明
 | 項目 | 内容 |
@@ -44,6 +42,7 @@
 - API Gateway で受け付けたリクエストは、Lambdaに引き渡され、処理内容に応じて 「Ingest API 」 または 「Query API」 を実行する。
 - Ingest APIで連携されたデータはS3に格納される。Bedrock Knowledge Bases は S3をデータソースとして自動的に同期・インデックス化を行い、質問応答に利用するためのRAG基盤を構築する。
 - Query API では、Lambda が Knowledge Bases に対して関連文書の検索を行い、取得したcontextとユーザーから受け取ったqueryを基にプロンプトを生成する。生成したプロンプトはBedrockのLLMに送信され、LLMが最終的な回答を生成する。
+---
 
 ## 📡 デモ
 
@@ -70,7 +69,7 @@ API実行のデモ用画面を用意した。
 
 ### 【実行結果4】
 <img width="624" height="607" alt="image" src="https://github.com/user-attachments/assets/e52645d4-f704-4de7-8bc3-2eaf77d76b1c" width="30%"/>
-
+---
 
 
 
@@ -83,6 +82,7 @@ API実行のデモ用画面を用意した。
 | インフラ構築 | IaC（Infrastructure as Code）によるインフラ自動構築 | VPC、API Gateway、Lambda などの主要な AWS リソースは **AWS SAM によりコード化して自動で構築**し、再現性の高い環境構築と変更管理を可能にした。 |
 | API仕様 | LLMモデルの可変対応（モデル切り替え機能） | API リクエストでモデル ID を指定することで、用途に応じて任意の LLM を利用可能。Claude、Llama、Titan、Cohere など Bedrock 上の任意モデルを柔軟に選択でき、**精度・速度・コスト要件に応じて最適なモデルを切り替えられる設計**とした。 |
 | API仕様 | Explainable AIのためのAPIレスポンス設計 | RAG の透明性を高めるため、APIレスポンスに以下の項目を設けた：<br>・rag_used：RAGを利用したか否か<br>・hit_count：RAGが返却したチャンク数<br>・context[]：LLM が返却したチャンク本文とそのメタ情報<br>LLMが**どの文書を参照して回答したかを可視化することで、業務システムで求められる説明責任と信頼性を確保**している。 |
+---
 
 ## 🚀実運用（商用環境）に向けた拡張ポイント
 
@@ -91,3 +91,4 @@ API実行のデモ用画面を用意した。
 | **セキュリティ強化（閉域化）** | 実運用では Lambda を VPC 内に配置し、Bedrock・S3 へのアクセスは VPC Endpoint 経由で完結させるアーキテクチャを想定。インターネットを経由しないことでセキュリティを強化する。 |
 | **認証・認可** | APIの認証について、デモでは API Key を利用。実運用では Amazon Cognito または Azure AD などの IdP と OIDC/OAuth2.0 連携を行い、より安全で運用しやすい認証基盤へ拡張する。 |
 | **RAG 精度向上** | 現状はシンプルなチャンク分割を行っている。商用環境では Parent-Child Indexing、構造化チャンク、ハイブリッド検索、メタデータ検索などを用い、ドキュメント増加時でも検索精度を維持できるアーキテクチャを想定。 |
+---
