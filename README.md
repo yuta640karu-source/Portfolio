@@ -25,7 +25,6 @@
 **[Swagger UI を開く](https://yuta640karu-source.github.io/Portfolio/index.html)**  
 
 
-  
 ## アーキテクチャ構成・処理フロー
 本システムは AWS のサーバーレスアーキテクチャを用いて構築している。
 なお、本プロジェクトでは PoC（個人開発）のため Lambda は VPC 外で実装する。
